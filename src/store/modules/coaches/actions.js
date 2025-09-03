@@ -4,7 +4,7 @@ export default {
     const coachData = {
       firstName: data.first,
       lastName: data.last,
-      description: data.rate,
+      description: data.desc,
       hourlyRate: data.rate,
       areas: data.areas,
     };
@@ -17,10 +17,13 @@ export default {
       }
     );
 
-    //const responseData = await response.json();
+    const responseData = await response.json();
 
     if (!response.ok) {
-      //
+      const error = new Error(
+        responseData.message || 'Failed to send request!'
+      );
+      throw error;
     }
 
     context.commit('addCoach', {
@@ -48,6 +51,7 @@ export default {
 
     for (const key in responseData) {
       const coach = {
+        id: key,
         firstName: responseData[key].firstName,
         lastName: responseData[key].lastName,
         description: responseData[key].description,
