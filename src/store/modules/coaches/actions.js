@@ -1,7 +1,7 @@
 export default {
-  addCoach(context, data) {
+  async addCoach(context, data) {
+    const userId = context.rootGetters.userId;
     const coachData = {
-      id: context.rootGetters.userId,
       firstName: data.first,
       lastName: data.last,
       description: data.rate,
@@ -9,6 +9,50 @@ export default {
       areas: data.areas,
     };
 
-    context.commit('addCoach', coachData);
+    const response = await fetch(
+      `https://vue-http-demo-85e93.firebaseio.com/coaches/${userId}.json`,
+      {
+        method: 'PUT',
+        body: JSON.stringify(coachData),
+      }
+    );
+
+    //const responseData = await response.json();
+
+    if (!response.ok) {
+      //
+    }
+
+    context.commit('addCoach', {
+      ...coachData,
+      id: userId,
+    });
+  },
+  async loadCoaches(context) {
+    const response = await fetch(
+      `https://vue-http-demo-85e93.firebaseio.com/coaches.json`
+    );
+
+    const responseData = await response.json();
+
+    if (!response.ok) {
+      const error = new Error(responseData.message || 'Failed to fetch!');
+      throw error;
+    }
+
+    const coaches = [];
+
+    for (const key in responseData) {
+      const coach = {
+        firstName: responseData[key].firstName,
+        lastName: responseData[key].lastName,
+        description: responseData[key].description,
+        hourlyRate: responseData[key].hourlyRate,
+        areas: responseData[key].areas,
+      };
+      coaches.push(coach);
+    }
+
+    context.commit('setCoaches', coaches);
   },
 };
