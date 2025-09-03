@@ -1,7 +1,7 @@
 <template>
   <header>
     <nav>
-      <h1><router-link to="/">Find a Coach</router-link></h1>
+      <h1><router-link to="/">Find me a Coach Please</router-link></h1>
       <ul>
         <li><router-link to="/coaches">All Coaches</router-link></li>
         <li><router-link to="/requests">Requests</router-link></li>
@@ -14,7 +14,7 @@
 header {
   width: 100%;
   height: 5rem;
-  background-color: #3d008d;
+  background-color: #8adba3;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -22,7 +22,7 @@ header {
 
 header a {
   text-decoration: none;
-  color: #f391e3;
+  color: #7844e0;
   display: inline-block;
   padding: 0.75rem 1.5rem;
   border: 1px solid transparent;
@@ -31,7 +31,7 @@ header a {
 a:active,
 a:hover,
 a.router-link-active {
-  border: 1px solid #f391e3;
+  border: 1px solid #7844e0;
 }
 
 h1 {
