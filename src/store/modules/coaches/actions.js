@@ -9,7 +9,7 @@ export default {
       areas: data.areas,
     };
 
-    const token = context.getters.token;
+    const token = context.rootGetters.token;
 
     const response = await fetch(
       `https://vue-http-demo-85e93.firebaseio.com/coaches/${userId}.json?auth=${token}`,
